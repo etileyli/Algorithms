@@ -1,2 +1,2 @@
 # Algorithms
-Some algorithms stuff
+Some algorithms stuff based on METU CENG707
