@@ -1,9 +1,9 @@
 #include<iostream>
 using namespace std;
 
-int int main(int argc, char const *argv[]) {
+int main(int argc, char const *argv[]) {
 
-  cout << "Hello World!";
+  cout << "Hello World for C++!\n";
 
   return 0;
 }
