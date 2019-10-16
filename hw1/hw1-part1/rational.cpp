@@ -49,6 +49,9 @@ Rational Rational::add(Rational rhs)
 {
     Rational result;
 
+    result.setNumerator(rhs.getNumerator() + this->numer);
+    result.setDenominator(rhs.getDenominator() + this->denom);
+
     // Simplify the result if possible. Note that we
     // are not passing "result" as an argument to
     // "simplify". Instead we are calling the "simplify"
@@ -63,11 +66,27 @@ Rational Rational::add(Rational rhs)
 Rational Rational::multiply(Rational rhs)
 {
     /* TO-DO: fill multiply */
+    Rational result;
+
+    result.setNumerator(rhs.getNumerator() * this->numer);
+    result.setDenominator(rhs.getDenominator() * this->denom);
+
+    result.simplify();
+
+    return result;
 }
 
 void Rational::simplify()
 {
     /* TO-DO: fill simplify */
+    int gcdVal = gcd(this->numer, this->denom);
+    if (gcdVal != 1){
+      numer /= gcdVal;
+      denom /= gcdVal;
+    }
+    else
+      std::cout << "no common divider!\n";
+
 }
 
 int Rational::gcd(int a, int b)
