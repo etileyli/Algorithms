@@ -1,5 +1,5 @@
 #include <iostream>
-#include "rational.hpp"
+#include "rational.h"
 
 // Default (zero-argument) constructor
 Rational::Rational()
@@ -11,6 +11,8 @@ Rational::Rational()
 Rational::Rational(int num, int den)
 {
     /* TO-DO: fill the constructor */
+    setNumerator(num);
+    setDenominator(den);
 }
 
 void Rational::setNumerator(int num)
@@ -21,21 +23,25 @@ void Rational::setNumerator(int num)
 int Rational::getNumerator()
 {
     /* TO-DO */
+    return numer;
 }
 
 void Rational::setDenominator(int den)
 {
     /* TO-DO */
+    denom = den;
 }
 
 int Rational::getDenominator()
 {
     /* TO-DO */
+    return denom;
 }
 
 void Rational::print()
 {
     /* TO-DO */
+    std::cout << "Numerator is " << numer << " and Demoniator is " << denom << "\n";
 }
 
 // Returns a + b
