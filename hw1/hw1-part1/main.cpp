@@ -12,8 +12,8 @@ int main()
     c = a.add(b);
     d = a.multiply(b);
     //
-    // a.print();
-    // b.print();
+    a.print();
+    b.print();
     c.print();
     d.print();
 
