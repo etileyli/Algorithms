@@ -52,6 +52,10 @@ template <class T>
 
     bool isEmpty(){return first->next == NULL;}
 
+    // For insertion
+    // 1-define a new node
+    // 2-make it point the node pointed by previous node
+    // 3-make previous node to point new node.
     void insert(const T& data, Node<T>* p){
       Node<T>* newNode = new Node<T>(data, p->next);
       p->next = newNode;
@@ -68,8 +72,28 @@ template <class T>
       return NULL;
     }
 
-    void remove(const T& data){
+    Node<T>* findPrevious(const T& data){
+      Node<T>* p = zeroth();
 
+      while(p->next){
+        if (p->next->element == data)
+          return p;
+        p = p->next;
+      }
+      return NULL;
+    }
+
+    // For removal
+    // 1-find previous
+    // 2-make previous point to next
+    void remove(const T& data){
+      Node<T>* p = findPrevious(data);
+
+      if (p){
+        Node<T>* temp = p->next;
+        p->next = temp->next;
+        delete temp;
+      }
     }
   };
 
