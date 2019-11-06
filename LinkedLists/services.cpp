@@ -46,6 +46,11 @@ template <class T>
   public:
     List2(){dummyHead = new Node<T>(T(), NULL);}
 
+    ~List2(){
+      makeEmpty();
+      delete dummyHead;
+    }
+
     Node<T>* zeroth(){return dummyHead;}
 
     Node<T>* first(){return dummyHead->next;}
@@ -94,6 +99,40 @@ template <class T>
         p->next = temp->next;
         delete temp;
       }
+    }
+
+    void print(){
+      Node<T>* p = first();
+
+      while(p){
+        cout << p->element << endl;
+        p = p->next;
+      }
+    }
+
+    void makeEmpty(){
+      while(!isEmpty()){
+        remove(first()->element);
+      }
+    }
+
+    List2& operator=(const List2& rhs){
+      if (this != rhs){
+        makeEmpty();
+        const Node<T>* r = rhs.first();
+        Node<T>* p = zeroth();
+
+        while(r){
+          insert(r->element, p);
+          r = r->next;
+          p = p->next;
+        }
+      }
+    }
+
+    List2(const List2& rhs){
+      dummyHead = new Node<T>(T(), NULL);
+      *this = rhs;  // use = operator
     }
   };
 
