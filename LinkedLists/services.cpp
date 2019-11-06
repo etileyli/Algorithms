@@ -58,10 +58,10 @@ template <class T>
     }
 
     Node<T>* zeroth(){return dummyHead;}
-    
+
     Node<T>* first(){return dummyHead->next;}
 
-    bool isEmpty(){return first->next == NULL;}
+    bool isEmpty(){return first() == NULL;}
 
     // For insertion
     // 1-define a new node
@@ -140,6 +140,18 @@ template <class T>
 int main(int argc, char const *argv[]) {
 
   cout<< "Hello to linked lists!\n";
+
+  List2<int> list;
+  list.insert(0, list.zeroth());
+  Node<int>* p = list.first();
+
+  for (int i = 1; i <= 10; i++){
+    list.insert(i, p);
+    p = p->next;
+  }
+
+  cout << "printing original list:" << endl;
+  list.print();
 
   return 0;
 }
