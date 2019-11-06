@@ -123,7 +123,7 @@ template <class T>
     }
 
     List2& operator=(const List2& rhs){
-      if (this != rhs){
+      if (this != &rhs){
         makeEmpty();
         const Node<T>* r = rhs.first();
         Node<T>* p = zeroth();
@@ -150,7 +150,24 @@ int main(int argc, char const *argv[]) {
     p = p->next;
   }
 
+  for (int i = 0; i <= 10; i++)
+    if (i % 2 == 0)
+      list.remove(i);
+
   cout << "printing original list:" << endl;
+  list.print();
+
+  // List2<int> list2 = list;
+  // cout << "printing copy constructed list" << endl;
+  // list2.print();
+
+  // List2<int> list3;
+  // list3 = list;
+  // cout << "printing list 3:" << endl;
+  // list.print();
+
+  list.makeEmpty();
+  cout << "printing empty list:" << endl;
   list.print();
 
   return 0;
