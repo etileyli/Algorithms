@@ -51,8 +51,14 @@ template <class T>
       delete dummyHead;
     }
 
-    Node<T>* zeroth(){return dummyHead;}
+    // copy constructor
+    List2(const List2& rhs){
+      dummyHead = new Node<T>(T(), NULL);
+      *this = rhs;  // use = operator
+    }
 
+    Node<T>* zeroth(){return dummyHead;}
+    
     Node<T>* first(){return dummyHead->next;}
 
     bool isEmpty(){return first->next == NULL;}
@@ -128,11 +134,6 @@ template <class T>
           p = p->next;
         }
       }
-    }
-
-    List2(const List2& rhs){
-      dummyHead = new Node<T>(T(), NULL);
-      *this = rhs;  // use = operator
     }
   };
 
