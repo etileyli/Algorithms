@@ -170,5 +170,7 @@ int main(int argc, char const *argv[]) {
   cout << "printing empty list:" << endl;
   list.print();
 
+  cout << "Hello from new mac!\n";
+
   return 0;
 }
