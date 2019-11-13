@@ -26,6 +26,26 @@ template <class T>
       delete dummyHead;
     }
 
+    List<T>& operator=(const List& rhs){
+      if (this != &rhs){
+        makeEmpty();
+        const Node<T>* r = rhs.first();
+        Node<T>* p = zeroth();
+
+        while(r){
+          insert(r->element, p);
+          r = r->next;
+          p = p->next;
+        }
+      }
+      return *this;
+    }
+
+    // copy constructor
+    List(const List& rhs){
+      dummyHead = new Node<T>(T(), NULL);
+      *this = rhs;  // use operator=
+    }
     Node<T>* zeroth(){return dummyHead;}
 
     Node<T>* first(){return dummyHead->next;}
@@ -93,25 +113,6 @@ template <class T>
       }
     }
 
-    List<T>& operator=(const List& rhs){
-      if (this != &rhs){
-        makeEmpty();
-        const Node<T>* r = rhs.first();
-        Node<T>* p = zeroth();
-
-        while(r){
-          insert(r->element, p);
-          r = r->next;
-          p = p->next;
-        }
-      }
-      return *this;
-    }
-    // copy constructor
-    List(const List& rhs){
-      dummyHead = new Node<T>(T(), NULL);
-      *this = rhs;  // use operator=
-    }
   };
 
 int main(int argc, char const *argv[]) {
