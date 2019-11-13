@@ -51,15 +51,11 @@ template <class T>
       delete dummyHead;
     }
 
-    // copy constructor
-    List2(const List2& rhs){
-      dummyHead = new Node<T>(T(), NULL);
-      *this = rhs;  // use = operator
-    }
-
     Node<T>* zeroth(){return dummyHead;}
 
     Node<T>* first(){return dummyHead->next;}
+
+    const Node<T>* first() const {return dummyHead->next;}
 
     bool isEmpty(){return first() == NULL;}
 
@@ -122,7 +118,7 @@ template <class T>
       }
     }
 
-    List2& operator=(const List2& rhs){
+    List2<T>& operator=(const List2& rhs){
       if (this != &rhs){
         makeEmpty();
         const Node<T>* r = rhs.first();
@@ -134,6 +130,12 @@ template <class T>
           p = p->next;
         }
       }
+      return *this;
+    }
+    // copy constructor
+    List2(const List2& rhs){
+      dummyHead = new Node<T>(T(), NULL);
+      *this = rhs;  // use operator=
     }
   };
 
@@ -157,14 +159,14 @@ int main(int argc, char const *argv[]) {
   cout << "printing original list:" << endl;
   list.print();
 
-  // List2<int> list2 = list;
-  // cout << "printing copy constructed list" << endl;
-  // list2.print();
+  List2<int> list2 = list;
+  cout << "printing copy constructed list" << endl;
+  list2.print();
 
-  // List2<int> list3;
-  // list3 = list;
-  // cout << "printing list 3:" << endl;
-  // list.print();
+  List2<int> list3;
+  list3 = list;
+  cout << "printing list 3:" << endl;
+  list.print();
 
   list.makeEmpty();
   cout << "printing empty list:" << endl;
