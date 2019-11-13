@@ -15,38 +15,13 @@ template <class T>
   };
 
 template <class T>
-  class List1{
-  private:
-    Node<T> *head;
-  public:
-    List1() : head(NULL){};
-    bool isEmpty() const{return head == NULL;}
-    Node<T>* first(){return head;};
-
-    // For insertion
-    // 1-define a new node
-    // 2-make it point the node pointed by previous node
-    // 3-make previous node to point new node.
-    void insert(const T& data, Node<T>* p){
-      if (p != NULL){ //case 1
-        Node<T>* newNode = new Node<T>(data, p->next);
-        p->next = newNode;
-      }
-      else{ // case 2
-        Node<T>* newNode = new Node<T>(data, head);
-        head = newNode;
-      }
-    }
-  };
-
-template <class T>
-  class List2{
+  class List{
   private:
     Node<T>* dummyHead;
   public:
-    List2(){dummyHead = new Node<T>(T(), NULL);}
+    List(){dummyHead = new Node<T>(T(), NULL);}
 
-    ~List2(){
+    ~List(){
       makeEmpty();
       delete dummyHead;
     }
@@ -118,7 +93,7 @@ template <class T>
       }
     }
 
-    List2<T>& operator=(const List2& rhs){
+    List<T>& operator=(const List& rhs){
       if (this != &rhs){
         makeEmpty();
         const Node<T>* r = rhs.first();
@@ -133,7 +108,7 @@ template <class T>
       return *this;
     }
     // copy constructor
-    List2(const List2& rhs){
+    List(const List& rhs){
       dummyHead = new Node<T>(T(), NULL);
       *this = rhs;  // use operator=
     }
@@ -143,7 +118,7 @@ int main(int argc, char const *argv[]) {
 
   cout<< "Hello to linked lists!\n";
 
-  List2<int> list;
+  List<int> list;
   list.insert(0, list.zeroth());
   Node<int>* p = list.first();
 
@@ -159,11 +134,11 @@ int main(int argc, char const *argv[]) {
   cout << "printing original list:" << endl;
   list.print();
 
-  List2<int> list2 = list;
+  List<int> list2 = list;
   cout << "printing copy constructed list" << endl;
   list2.print();
 
-  List2<int> list3;
+  List<int> list3;
   list3 = list;
   cout << "printing list 3:" << endl;
   list.print();
@@ -171,8 +146,6 @@ int main(int argc, char const *argv[]) {
   list.makeEmpty();
   cout << "printing empty list:" << endl;
   list.print();
-
-  cout << "Hello from new mac!\n";
 
   return 0;
 }
