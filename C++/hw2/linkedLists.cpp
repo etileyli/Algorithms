@@ -2,6 +2,7 @@
 #include "llServices.h"
 using namespace std;
 
+
 int main(int argc, char const *argv[]) {
   cout << "hw2\n";
 
@@ -38,8 +39,27 @@ int main(int argc, char const *argv[]) {
 
     cout << "printing original list1:" << endl;
     list1.print();
-    cout << "printing original list2:" << endl;
-    list2.print();
+    // cout << "printing original list2:" << endl;
+    // list2.print();
+
+    // list1.insert(7, list1.first());
+
+    // Swap tests
+    // list1.swap(list1.find(5), list1.find(2));
+    // list1.swap(list1.find(5), list1.find(5));
+    // list1.swap(list1.find(23), list1.find(25));
+
+    list1.selectionSort();
+    cout << "printing new list1:" << endl;
+    list1.print();
+    // cout<< "First element: " << list1.first()->element << endl;
+    // list1.remove(list1.first()->element);
+    // cout << "printing newer list1:" << endl;
+    // list1.print();
+
+    // list1.selectionSort();
+    // cout << "printing new list1:" << endl;
+    // list1.print();
 
   return 0;
 }
