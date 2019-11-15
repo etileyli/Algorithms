@@ -123,19 +123,6 @@ template <class T>
       insert(temp->element, val1);
       remove(val1->element);
       val1 = val1->next;
-
-
-      //
-      // insert(val2->element, val1);
-      // temp = val1;
-      // val1 = val1->next;
-      // remove(temp->element);
-      //
-      // insert(temp->element, val2);
-      // cout << "val2->next->element " << val2->next->element << endl;
-      // cout << "val1->element " << val1->element << endl;
-
-      // remove(val2->element);
     }
 
     void selectionSort(){
@@ -184,6 +171,7 @@ template <class T>
       }
     }
 
+    // works on sorted list. Sort your list first.
     int dupItemCount(){
 
       int countOfDuplicates = 0;
