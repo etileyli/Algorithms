@@ -156,9 +156,11 @@ template <class T>
           // cout << p2->element << endl;
           p2 = p2->next;
         }
-        cout << "Min updated to " << minNode->element << endl;
-        cout << "Swapping element " << p->element << " with element " << minNode->element << endl;
-        swap(p, minNode);
+        if (p->element != minNode->element){
+          cout << "Min updated to " << minNode->element << endl;
+          cout << "Swapping element " << p->element << " with element " << minNode->element << endl;
+          swap(p, minNode);          
+        }
         print();
 
         p = p->next;
