@@ -9,7 +9,7 @@ int main(int argc, char const *argv[]) {
     List<int> list1, list2;
     Node<int>* p;
 
-    int list1Length = 15, list2Length = 40;
+    int list1Length = 5, list2Length = 4;
 
     // list1
     for (int i = 0; i < list1Length; i++){
@@ -66,6 +66,10 @@ int main(int argc, char const *argv[]) {
     // list1.selectionSort();
     // cout << "printing new list1:" << endl;
     // list1.print();
+
+    list1.appendList(list2);
+    cout << "printing appended list:" << endl;
+    list1.print();
 
   return 0;
 }

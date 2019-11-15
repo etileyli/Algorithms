@@ -159,7 +159,7 @@ template <class T>
         if (p->element != minNode->element){
           cout << "Min updated to " << minNode->element << endl;
           cout << "Swapping element " << p->element << " with element " << minNode->element << endl;
-          swap(p, minNode);          
+          swap(p, minNode);
         }
         print();
 
@@ -167,6 +167,27 @@ template <class T>
         cout << "End of cycle " << k << " p->element = " << p->element << endl;
       }
     }
+
+    void appendList (List<T> list2){
+      Node<T>* p = first();
+      Node<T>* p2 = list2.first();
+
+      while (p->next){
+        p = p->next;
+      }
+
+      while (p2) {
+        insert(p2->element, p);
+        p2 = p2->next;
+        p = p->next;
+        print();
+      }
+    }
+
+    void dupItemCount(List<T> list){
+      
+    }
+
   };
 
 // Test program for llServices. Change file extension from .h to .cpp to execute
