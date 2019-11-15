@@ -143,11 +143,11 @@ template <class T>
 
       int k = 1;
       while(p->next){
-        cout << "******Cycle " << k++ << endl;
+        // cout << "******Cycle " << k++ << endl;
         Node<T>* minNode = p;
         Node<T>* p2 = p->next;
-        cout << "p->element = " << p->element << endl;
-        cout << "p2->element = " << p2->element << endl;
+        // cout << "p->element = " << p->element << endl;
+        // cout << "p2->element = " << p2->element << endl;
         while(p2){
           if (p2->element < minNode->element){
             // cout << "p2->element = " << p2->element << " minNode->element = " << minNode->element << endl;
@@ -157,14 +157,14 @@ template <class T>
           p2 = p2->next;
         }
         if (p->element != minNode->element){
-          cout << "Min updated to " << minNode->element << endl;
-          cout << "Swapping element " << p->element << " with element " << minNode->element << endl;
+          // cout << "Min updated to " << minNode->element << endl;
+          // cout << "Swapping element " << p->element << " with element " << minNode->element << endl;
           swap(p, minNode);
         }
-        print();
+        // print();
 
         p = p->next;
-        cout << "End of cycle " << k << " p->element = " << p->element << endl;
+        // cout << "End of cycle " << k << " p->element = " << p->element << endl;
       }
     }
 
@@ -180,12 +180,27 @@ template <class T>
         insert(p2->element, p);
         p2 = p2->next;
         p = p->next;
-        print();
+        // print();
       }
     }
 
-    void dupItemCount(List<T> list){
-      
+    int dupItemCount(){
+
+      int countOfDuplicates = 0;
+      int temp = -1;
+      Node<T>* p = first();
+
+      while(p->next){
+        if ((p->next->element == p->element)&(p->next->element != temp)){
+          countOfDuplicates++;
+          temp = p->element;
+        }
+        else
+          temp = -1;
+
+        p = p->next;
+      }
+      return countOfDuplicates;
     }
 
   };
