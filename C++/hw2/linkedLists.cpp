@@ -43,6 +43,7 @@ int main(int argc, char const *argv[]) {
     // list2.print();
 
     // list1.insert(7, list1.first());
+    // list1.remove(23);
 
     // Swap tests
     // list1.swap(list1.find(5), list1.find(2));
@@ -52,6 +53,10 @@ int main(int argc, char const *argv[]) {
     list1.selectionSort();
     cout << "printing new list1:" << endl;
     list1.print();
+
+    // list2.selectionSort();
+    // cout << "printing new list2:" << endl;
+    // list2.print();
     // cout<< "First element: " << list1.first()->element << endl;
     // list1.remove(list1.first()->element);
     // cout << "printing newer list1:" << endl;

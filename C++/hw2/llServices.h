@@ -113,22 +113,29 @@ template <class T>
       }
     }
 
+    void swap(Node<T>* &val1, Node<T>* val2){
+      Node<T>* temp;
 
-
-    // void swap( T &lhs, T &rhs )
-    // {
-    // 	T tmp = lhs;
-    // 	lhs = rhs;
-    // 	rhs = tmp;
-    // }
-
-    void swap(Node<T>* val1, Node<T>* val2){
-      Node<T>* temp = val2;
       insert(val1->element, val2);
+      temp = val2;
       remove(val2->element);
+
       insert(temp->element, val1);
       remove(val1->element);
-      print();
+      val1 = val1->next;
+
+
+      //
+      // insert(val2->element, val1);
+      // temp = val1;
+      // val1 = val1->next;
+      // remove(temp->element);
+      //
+      // insert(temp->element, val2);
+      // cout << "val2->next->element " << val2->next->element << endl;
+      // cout << "val1->element " << val1->element << endl;
+
+      // remove(val2->element);
     }
 
     void selectionSort(){
@@ -152,22 +159,12 @@ template <class T>
         cout << "Min updated to " << minNode->element << endl;
         cout << "Swapping element " << p->element << " with element " << minNode->element << endl;
         swap(p, minNode);
+        print();
 
-        // print();
-        p = p->next->next;
+        p = p->next;
         cout << "End of cycle " << k << " p->element = " << p->element << endl;
       }
     }
-
-    void selectionSort(T a[], int n) {
-      for (int i = 0; i < n-1; i++) {
-        int min = i;
-        for (int j = i+1; j < n; j++)
-           if (a[j] < a[min]) min = j;
-        swap(a[i], a[min]);
-      }
-    }
-
   };
 
 // Test program for llServices. Change file extension from .h to .cpp to execute
