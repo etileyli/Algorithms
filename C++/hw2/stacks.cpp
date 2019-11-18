@@ -5,42 +5,35 @@ using namespace std;
 static int inputArr[10] = {3, 6, 4, 1, 3, 4, 2, 5, 3, 0};
 
 class Node{
-  int raw;
-  int column;
-  int value;
+  int row, column, value;
   bool marked;
 public:
-  Node():raw(0), column(0), value(inputArr[raw]), marked(false){}
+  Node():row(0), column(0), value(inputArr[row]), marked(false){}
 
-  Node(int _raw, int _column){
-    raw = _raw;
+  Node(int _row, int _column){
+    row = _row;
     column = _column;
     value = inputArr[column];
+    marked = false;
   }
 
-  int getRaw(){
-    return raw;
-  }
+  int getRow(){return row;}
 
-  int getColumn(){
-    return column;
-  }
+  int getColumn(){return column;}
 
-  int getVal(){
-    return value;
-  }
+  int getVal(){return value;}
 
   void print(){
-    cout << "raw: " << raw + 1 << "  column: " << column + 1 <<  "  value: " << value << "  marked: " << marked <<endl;
+    cout << "row: " << row + 1 << "  column: " << column + 1 <<  "  value: " << value << "  marked: " << marked <<endl;
   }
 
-  // If the value of the raw is 7, the node is a leaf node
+  // If the value of the row is 7, the node is a leaf node
   bool isLeaf(){
-    return (raw + 1) == 7;
+    return (row + 1) == 7;
   }
 
   bool isGoal(){
-    return ( isLeaf() && column == 9 && value == 0);
+    return (isLeaf() && column == 9 && value == 0);
   }
 
   bool isMarked(){return marked == true;}
@@ -58,12 +51,10 @@ public:
 
 // Input 1x10 matrix
 // Target: Try to reach the last element of the input
-//         array at exactly 7th raw.
+//         array at exactly 7th row.
 bool solve(){
   Stack<Node> s;
-  Node firstNode;
-
-  int k = 0;
+  Node firstNode (0, 0); // Initialize the node to row:1, column:1
 
   // push node n on the stack S;
   s.push(firstNode);
@@ -72,10 +63,14 @@ bool solve(){
     s.getTop(node);
 
     if (node.isLeaf()){
-      if (node.isGoal())
+      if (node.isGoal()){
+        cout << "Exit is found. The node: ";
+        node.print();
         return true;
+      }
       else{
-        cout << "A leaf node and it is not the result!\n";
+        cout << "Popping leaf node: ";
+        node.print();
         s.pop();
       }
     }
@@ -88,16 +83,20 @@ bool solve(){
 
       // If it has a valid child at right, push to stack
       if (nd.isRightChildValid()){
-        Node rightNode(nd.getRaw() + 1, nd.getColumn() + nd.getVal());
-        cout << "pushing: ";
+        Node rightNode(nd.getRow() + 1, nd.getColumn() + nd.getVal());
+        // if last column is encountered before row 7, return with failure
+        if (nd.getVal() == 0 && nd.getRow() != 7)
+          return false;
+
+        cout << "Pushing: ";
         rightNode.print();
         s.push(rightNode);
       }
 
       // If it has a valid child at left, push to stack
       if (nd.isLeftChildValid()){
-        Node leftNode(nd.getRaw() + 1, nd.getColumn() - nd.getVal());
-        cout << "pushing: ";
+        Node leftNode(nd.getRow() + 1, nd.getColumn() - nd.getVal());
+        cout << "Pushing: ";
         leftNode.print();
         s.push(leftNode);
       }
@@ -105,7 +104,7 @@ bool solve(){
     else if(!node.isLeaf() && node.isMarked()) { // backing out
       Node tmp;
       s.topAndPop(tmp);
-      cout << "pop: ";
+      cout << "Popping marked non-leaf node: ";
       tmp.print();
     };
   }
@@ -115,6 +114,6 @@ bool solve(){
 
 int main(int argc, char const *argv[]) {
 
-  solve() ? cout << "true!\n" : cout << "false!\n";
+  solve() ?  cout << "Success!\n" : cout << "No solution is found!\n";
   return 0;
 }
