@@ -120,8 +120,17 @@ int main(int argc, char const *argv[]) {
   //   Node firstNode (0, i);
   //   solve(firstNode) ?  cout << "SUCCESS!\n\n" : cout << "No solution is found!\n";
   // }
-    Node firstNode (0, 0);  
-    solve(firstNode) ?  cout << "SUCCESS!\n\n" : cout << "No solution is found!\n";
+    // SOLUTION 1 - Starts from (1, 1) position
+    Node firstNode1 (0, 0);
+    solve(firstNode1) ?  cout << "SUCCESS!\n\n" : cout << "No solution is found!\n";
+
+    // SOLUTION 2 - Starts from (1, 2) position
+    Node firstNode2 (0, 1);
+    solve(firstNode2) ?  cout << "SUCCESS!\n\n" : cout << "No solution is found!\n";
+
+    // SOLUTION 3 - Starts from (1, 5) position
+    Node firstNode3 (0, 4);
+    solve(firstNode3) ?  cout << "SUCCESS!\n\n" : cout << "No solution is found!\n";
 
   return 0;
 }
