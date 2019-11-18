@@ -34,12 +34,13 @@ public:
     cout << "raw: " << raw + 1 << "  column: " << column + 1 <<  "  value: " << value << "  marked: " << marked <<endl;
   }
 
+  // If the value of the raw is 7, the node is a leaf node
   bool isLeaf(){
-    return raw == 7;
+    return (raw + 1) == 7;
   }
 
   bool isGoal(){
-    return (raw == 7 && column == 10 && value == 0);
+    return ( isLeaf() && column == 9 && value == 0);
   }
 
   bool isMarked(){return marked == true;}
@@ -73,8 +74,10 @@ bool solve(){
     if (node.isLeaf()){
       if (node.isGoal())
         return true;
-      else
+      else{
+        cout << "A leaf node and it is not the result!\n";
         s.pop();
+      }
     }
     else if(!node.isMarked()){  // if s.Top() is unmarked
       // Mark s.Top() node
@@ -86,6 +89,7 @@ bool solve(){
       // If it has a valid child at right, push to stack
       if (nd.isRightChildValid()){
         Node rightNode(nd.getRaw() + 1, nd.getColumn() + nd.getVal());
+        cout << "pushing: ";
         rightNode.print();
         s.push(rightNode);
       }
@@ -93,16 +97,15 @@ bool solve(){
       // If it has a valid child at left, push to stack
       if (nd.isLeftChildValid()){
         Node leftNode(nd.getRaw() + 1, nd.getColumn() - nd.getVal());
+        cout << "pushing: ";
         leftNode.print();
         s.push(leftNode);
       }
-
-      // return false;
     }
     else if(!node.isLeaf() && node.isMarked()) { // backing out
       Node tmp;
       s.topAndPop(tmp);
-      cout << "popping : ";
+      cout << "pop: ";
       tmp.print();
     };
   }
@@ -112,7 +115,6 @@ bool solve(){
 
 int main(int argc, char const *argv[]) {
 
-  solve();
-
+  solve() ? cout << "true!\n" : cout << "false!\n";
   return 0;
 }
