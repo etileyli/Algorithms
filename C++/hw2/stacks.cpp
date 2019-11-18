@@ -52,12 +52,14 @@ public:
 // Input 1x10 matrix
 // Target: Try to reach the last element of the input
 //         array at exactly 7th row.
-bool solve(){
+bool solve(Node firstNode){
   Stack<Node> s;
-  Node firstNode (0, 0); // Initialize the node to row:1, column:1
 
+  cout << "The top node is:" << endl;
+  firstNode.print();
   // push node n on the stack S;
   s.push(firstNode);
+
   while(!s.isEmpty()){
     Node node;
     s.getTop(node);
@@ -114,6 +116,12 @@ bool solve(){
 
 int main(int argc, char const *argv[]) {
 
-  solve() ?  cout << "Success!\n" : cout << "No solution is found!\n";
+  // for (int i = 0; i < 10; i++){
+  //   Node firstNode (0, i);
+  //   solve(firstNode) ?  cout << "SUCCESS!\n\n" : cout << "No solution is found!\n";
+  // }
+    Node firstNode (0, 0);  
+    solve(firstNode) ?  cout << "SUCCESS!\n\n" : cout << "No solution is found!\n";
+
   return 0;
 }
