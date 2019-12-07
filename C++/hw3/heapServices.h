@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 template <class Comparable>
@@ -16,10 +17,15 @@ class BinaryHeap
 
   private:
     int theSize;  // Number of elements in heap
-    std::vector<Comparable> array;   // The heap array
+    vector<Comparable> array;   // The heap array
     void buildHeap( );
     void percolateDown( int hole );
 };
+
+template <class Comparable>
+BinaryHeap<Comparable>::BinaryHeap(int capacity){
+
+}
 
 
 // Insert item x into the priority queue, maintaining heap order.
