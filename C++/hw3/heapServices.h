@@ -2,42 +2,41 @@
 #include <vector>
 using namespace std;
 
-template <class MinMaxHeap>
-class BinaryHeap
-{
+template <class Comparable>
+class MinMaxHeap{
   public:
-    BinaryHeap( int capacity = 100, bool isMin = true );
+    MinMaxHeap( int capacity = 100, bool isMin = true );
     bool isEmpty( ) const;
-    const MinMaxHeap & findMin( ) const;
+    const Comparable & findMin( ) const;
 
-    void insert( const MinMaxHeap & x );
+    void insert( const Comparable & x );
     void deleteMin( );
-    void deleteMin( MinMaxHeap & minItem );
+    void deleteMin( Comparable & minItem );
     void makeEmpty( );
+    void printHeap();
 
   private:
     int _theSize;  // Number of elements in heap
     bool _isMin;
-    vector<MinMaxHeap> array;   // The heap array
+    vector<Comparable> array;   // The heap array
     void buildHeap( );
     void percolateDown( int hole );
 };
 
-template <class MinMaxHeap>
-BinaryHeap<MinMaxHeap>::BinaryHeap(int capacity, bool isMin){
-  _theSize = capacity;
-  _isMin = isMin;
+template <class Comparable>
+MinMaxHeap<Comparable>::MinMaxHeap(int capacity, bool isMin){
+  _theSize = 0;   // initial size of the heap
+  // _isMin = isMin; // If the heap is min or max
+  array.push_back(0);
 }
-
 
 // Insert item x into the priority queue, maintaining heap order.
 // Duplicates are allowed.
-template <class MinMaxHeap>
-void BinaryHeap<MinMaxHeap>::insert( const MinMaxHeap & x )
-{
+template <class Comparable>
+void MinMaxHeap<Comparable>::insert(const Comparable & x){
     array[ 0 ] = x;   // initialize sentinel
     if( _theSize + 1 == array.size( ) )
-        array.resize( array.size( ) * 2 + 1 );
+        array.resize( array.size() * 2 + 1 );
 
     // Percolate up
     int hole = ++_theSize;
@@ -48,9 +47,8 @@ void BinaryHeap<MinMaxHeap>::insert( const MinMaxHeap & x )
 
 // Remove the smallest item from the priority queue.
 // Exit without error if empty.
-template <class MinMaxHeap>
-void BinaryHeap<MinMaxHeap>::deleteMin( )
-{
+template <class Comparable>
+void MinMaxHeap<Comparable>::deleteMin( ){
     if( isEmpty( ) )
         exit(1);
 
@@ -60,11 +58,10 @@ void BinaryHeap<MinMaxHeap>::deleteMin( )
 
 // Internal method to percolate down in the heap.
 // hole is the index at which the percolate begins.
-template <class MinMaxHeap>
-void BinaryHeap<MinMaxHeap>::percolateDown( int hole )
-{
+template <class Comparable>
+void MinMaxHeap<Comparable>::percolateDown( int hole ){
   int child;
-  MinMaxHeap tmp = array[ hole ];
+  Comparable tmp = array[ hole ];
 
   for( ; hole * 2 <= _theSize; hole = child )
   {
@@ -81,9 +78,16 @@ void BinaryHeap<MinMaxHeap>::percolateDown( int hole )
 
 // Establish heap-order property from an arbitrary
 // arrangement of items. Runs in linear time.
-template <class MinMaxHeap>
-void BinaryHeap<MinMaxHeap>::buildHeap( )
-{
+template <class Comparable>
+void MinMaxHeap<Comparable>::buildHeap( ){
     for( int i = _theSize / 2; i > 0; i-- )
         percolateDown( i );
+}
+
+template <class Comparable>
+void MinMaxHeap<Comparable>::printHeap(){
+  cout << "[ ";
+  for (int i = 1; i <= _theSize; i++)
+    cout << array[i] << " " ;
+  cout << "]\n";
 }
