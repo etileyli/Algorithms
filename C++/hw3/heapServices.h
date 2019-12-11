@@ -14,9 +14,10 @@ class MinMaxHeap{
     void deleteMin( Comparable & minItem );
     void makeEmpty( );
     void printHeap();
-    int _theSize;  // Number of elements in heap
+    int getSize();
 
   private:
+    int _theSize;  // Number of elements in heap
     bool _isMin;
     vector<Comparable> array;   // The heap array
     void buildHeap( );
@@ -97,4 +98,9 @@ bool MinMaxHeap<Comparable>::isEmpty( ){
   if (_theSize == 0)
     return true;
   return false;
+}
+
+template <class Comparable>
+int MinMaxHeap<Comparable>::getSize(){
+  return _theSize;
 }
