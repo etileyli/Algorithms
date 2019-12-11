@@ -6,7 +6,7 @@ template <class Comparable>
 class MinMaxHeap{
   public:
     MinMaxHeap( int capacity = 100, bool isMin = true );
-    bool isEmpty( ) const;
+    bool isEmpty( );
     const Comparable & findMin( ) const;
 
     void insert( const Comparable & x );
@@ -14,9 +14,9 @@ class MinMaxHeap{
     void deleteMin( Comparable & minItem );
     void makeEmpty( );
     void printHeap();
+    int _theSize;  // Number of elements in heap
 
   private:
-    int _theSize;  // Number of elements in heap
     bool _isMin;
     vector<Comparable> array;   // The heap array
     void buildHeap( );
@@ -90,4 +90,11 @@ void MinMaxHeap<Comparable>::printHeap(){
   for (int i = 1; i <= _theSize; i++)
     cout << array[i] << " " ;
   cout << "]\n";
+}
+
+template <class Comparable>
+bool MinMaxHeap<Comparable>::isEmpty( ){
+  if (_theSize == 0)
+    return true;
+  return false;
 }
