@@ -21,11 +21,11 @@ int main(int argc, char const *argv[]) {
     int newElement = rand() % 47;   // create a random number
     cout << newElement << endl;
     // Insert to a MIN heap. Min element stands at the top
-    minHeap.insertMaxHeap(newElement);
+    minHeap.insert(newElement);
     // when MIN heap size is larger than k, delete minimum of k numbers
     // cout << "_theSize = " << heap.getSize()<< endl;
     if (minHeap.getSize() > k)
-      minHeap.deleteMin();
+      minHeap.deleteTop();
       minHeap.printHeap();
   }
 
@@ -38,10 +38,10 @@ int main(int argc, char const *argv[]) {
     int newElement = rand() % 47;   // create a random number
     cout << newElement << endl;
     // Insert to a Max heap. Max element stands at the top
-    maxHeap.insertMinHeap(newElement);
+    maxHeap.insert(newElement);
     // when MAX heap size is larger than k, delete Max of k numbers
     if (maxHeap.getSize() > k)
-      maxHeap.deleteMax();
+      maxHeap.deleteTop();
     maxHeap.printHeap();
   }
 
