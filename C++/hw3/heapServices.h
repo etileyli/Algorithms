@@ -9,8 +9,10 @@ class MinMaxHeap{
     bool isEmpty( );
     const Comparable & findMin( ) const;
 
-    void insert( const Comparable & x );
+    void insertMinHeap( const Comparable & x );
+    void insertMaxHeap( const Comparable & x );
     void deleteMin( );
+    void deleteMax( );
     void deleteMin( Comparable & minItem );
     void makeEmpty( );
     void printHeap();
@@ -21,7 +23,8 @@ class MinMaxHeap{
     bool _isMin;
     vector<Comparable> array;   // The heap array
     void buildHeap( );
-    void percolateDown( int hole );
+    void percolateDownMinHeap( int hole );
+    void percolateDownMaxHeap( int hole );
 };
 
 template <class Comparable>
@@ -34,7 +37,20 @@ MinMaxHeap<Comparable>::MinMaxHeap(int capacity, bool isMin){
 // Insert item x into the priority queue, maintaining heap order.
 // Duplicates are allowed.
 template <class Comparable>
-void MinMaxHeap<Comparable>::insert(const Comparable & x){
+void MinMaxHeap<Comparable>::insertMinHeap(const Comparable & x){
+    array[ 0 ] = x;   // initialize sentinel
+    if( _theSize + 1 == array.size( ) )
+        array.resize( array.size() * 2 + 1 );
+
+    // Percolate up
+    int hole = ++_theSize;
+    for( ; x > array[ hole / 2 ]; hole /= 2 )
+        array[ hole ] = array[ hole / 2 ];
+    array[ hole ] = x;
+}
+
+template <class Comparable>
+void MinMaxHeap<Comparable>::insertMaxHeap(const Comparable & x){
     array[ 0 ] = x;   // initialize sentinel
     if( _theSize + 1 == array.size( ) )
         array.resize( array.size() * 2 + 1 );
@@ -54,13 +70,12 @@ void MinMaxHeap<Comparable>::deleteMin( ){
         exit(1);
 
     array[ 1 ] = array[ _theSize-- ];
-    percolateDown( 1 );
+    percolateDownMinHeap( 1 );
 }
-
 // Internal method to percolate down in the heap.
 // hole is the index at which the percolate begins.
 template <class Comparable>
-void MinMaxHeap<Comparable>::percolateDown( int hole ){
+void MinMaxHeap<Comparable>::percolateDownMinHeap( int hole ){
   int child;
   Comparable tmp = array[ hole ];
 
@@ -77,12 +92,41 @@ void MinMaxHeap<Comparable>::percolateDown( int hole ){
   array[ hole ] = tmp;
 }
 
+// Remove the largest item from the priority queue.
+// Exit without error if empty.
+template <class Comparable>
+void MinMaxHeap<Comparable>::deleteMax( ){
+    if( isEmpty( ) )
+        exit(1);
+
+    array[ 1 ] = array[ _theSize-- ];
+    percolateDownMaxHeap( 1 );
+}
+
+template <class Comparable>
+void MinMaxHeap<Comparable>::percolateDownMaxHeap( int hole ){
+  int child;
+  Comparable tmp = array[ hole ];
+
+  for( ; hole * 2 <= _theSize; hole = child )
+  {
+    child = hole * 2;
+    if( child != _theSize && array[child + 1] > array[child])
+       child++;
+    if( array[ child ] > tmp )
+       array[ hole ] = array[ child ];
+    else
+       break;
+  }
+  array[ hole ] = tmp;
+}
+
 // Establish heap-order property from an arbitrary
 // arrangement of items. Runs in linear time.
 template <class Comparable>
 void MinMaxHeap<Comparable>::buildHeap( ){
     for( int i = _theSize / 2; i > 0; i-- )
-        percolateDown( i );
+        percolateDownMinHeap( i );
 }
 
 template <class Comparable>
@@ -95,7 +139,7 @@ void MinMaxHeap<Comparable>::printHeap(){
 
 template <class Comparable>
 bool MinMaxHeap<Comparable>::isEmpty( ){
-  if (_theSize == 0)
+  if (_theSize <= 0)
     return true;
   return false;
 }
