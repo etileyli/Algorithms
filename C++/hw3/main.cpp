@@ -6,7 +6,8 @@ int main(int argc, char const *argv[]) {
 
   int arraySize; // User defined heap size
   int k;        // User defined greatest/smallest item count
-  MinMaxHeap<int> minHeap, maxHeap;
+  MinMaxHeap<int> minHeap(100, true);
+  MinMaxHeap<int> maxHeap(100, false);
 
   // k-Greatest elements solution
   // Create a k-size min heap and remove root element (minimum of k elements)
@@ -26,7 +27,7 @@ int main(int argc, char const *argv[]) {
     // cout << "_theSize = " << heap.getSize()<< endl;
     if (minHeap.getSize() > k)
       minHeap.deleteTop();
-      minHeap.printHeap();
+    minHeap.printHeap();
   }
 
   // k-Smallest elements solution
