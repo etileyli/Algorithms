@@ -2,6 +2,7 @@
 #include <vector>
 #include <math.h>
 #include <fstream>
+#include <iomanip>
 using namespace std;
 
 template <class Comparable>
@@ -167,8 +168,6 @@ bool MinMaxHeap<Comparable>::isFirstNode(int index){
   return false;
 }
 
-
-
 template <class Comparable>
 void MinMaxHeap<Comparable>::printHeap(){
   cout << "[ ";
@@ -181,32 +180,26 @@ template <class Comparable>
 void MinMaxHeap<Comparable>::printHeapTree(){
   int depth = floor(log2(_theSize));  // depth of the tree
   int nodeDepth = 0;    // depth of the node
-  int tabCount = 0;
+  int tabCount = 0;     // tab count to insert
   cout << "The size is " << _theSize << endl;
   cout << "The depth is " << depth << endl;
 
-  ofstream myfile;
-  myfile.open ("printTree.txt");
+  // create a file to print heap as a tree
+  ofstream treeFile;
+  treeFile.open("printTree.txt");
 
   for (int index = 1; index <= _theSize; index++){
-    nodeDepth = floor(log2(index));
-    // cout << "index: " << index << "; nodeDepth: " << nodeDepth << " is first node: " << isFirstNode(index) <<  endl;
-    if (isFirstNode(index)){
-      myfile << endl;
-      // insertSpace(2^(depth - nodeDepth) - 1);
+    nodeDepth = floor(log2(index));   //  calculate node depth
+    tabCount = pow(2, (depth - nodeDepth) + 1) - 1;   // calculate tab count for node
+    if (isFirstNode(index)){  // check if the node is first in row
+      treeFile << endl;
       tabCount = pow(2, (depth - nodeDepth)) - 1;
-      // cout << "tabCount for index " << index << " is " <<  tabCount << endl;
-      for (int i = 0; i < tabCount; i++)
-        myfile << "\t";
     }
-    else{
-      // insertSpace(2^(depth - nodeDepth + 1) - 1);
-      tabCount = pow(2, (depth - nodeDepth) + 1) - 1;
-      // cout << "tabCount for index " << index << " is " <<  tabCount << endl;
-      for (int i = 0; i < tabCount; i++)
-        myfile << "\t";
-    }
-    myfile << array[index];
+    // insert tabs before the nodeDepth
+    for (int i = 0; i < tabCount; i++)
+      treeFile << "\t";
+    treeFile << setfill('0') << setw(2) << array[index];   // insert node value
   }
-  myfile.close();
+
+  treeFile.close();
 }

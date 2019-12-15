@@ -10,7 +10,7 @@ int main(int argc, char const *argv[]) {
 
   // Use insert function to fill heap1
   for (int i = 0; i < arraySize; i++ ){
-      int element = rand() % 42;
+      int element = rand() % 100;
       heap.insert(element);
   }
 
