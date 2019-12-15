@@ -17,5 +17,18 @@ int main(int argc, char const *argv[]) {
   heap.printHeap();
   heap.printHeapTree();
 
+  int delNodeCount = 0;
+  cout << "Enter the node count to be deleted from tree: "; cin >> delNodeCount;
+  if (delNodeCount >= arraySize){
+    cout << "Nodes to be deleted should be smaller than heap size. The program will exit.";
+    return 1;
+  }
+
+  for (int i = 0; i < delNodeCount; i++)
+    heap.deleteTop();
+
+  heap.printHeap();
+  heap.printHeapTree();
+
   return 0;
 }
