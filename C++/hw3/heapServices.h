@@ -203,3 +203,49 @@ void MinMaxHeap<Comparable>::indentedPrint(){
 
   treeFile.close();
 }
+
+
+template <class Comparable>
+class FourMinHeap{
+public:
+  FourMinHeap(){array.push_back(0); _theSize = 0;};
+  void insert(const Comparable & x);
+  void deleteTop( );
+  void deleteTop(Comparable &topItem);
+  void indentedPrint();
+  void printHeap();
+private:
+  int _theSize;  // Number of elements in heap
+  bool _isMin;
+  vector<Comparable> array;   // The heap array
+  void percolateDown( int hole );
+  void buildHeap( );
+};
+
+template <class Comparable>
+void FourMinHeap<Comparable>::insert(const Comparable & x){
+  Comparable in = x, temp;
+  cout << "x: " << x << endl;
+
+  if( _theSize + 1 == array.size( ) )
+      array.resize( array.size() * 2 + 1 );
+
+  if (_theSize++ == 0)
+    array[0] = x;
+  else{
+    // Percolate up
+    int hole = _theSize;
+    for(; x < array[hole / 4]; hole /= 4 ){
+      array[ hole ] = array[ hole / 4 ];
+      array[hole / 4] = in;
+    }
+  }
+}
+
+template <class Comparable>
+void FourMinHeap<Comparable>::printHeap(){
+  cout << "[ ";
+  for (int i = 0; i <= _theSize; i++)
+    cout << array[i] << " " ;
+  cout << "]\n";
+}
