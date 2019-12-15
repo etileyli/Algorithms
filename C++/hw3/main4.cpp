@@ -16,6 +16,5 @@ int main(int argc, char const *argv[]) {
     heap.printHeap();
   }
 
-
   return 0;
 }

@@ -224,20 +224,25 @@ private:
 
 template <class Comparable>
 void FourMinHeap<Comparable>::insert(const Comparable & x){
-  Comparable in = x, temp;
+  Comparable input = x, temp;
   cout << "x: " << x << endl;
 
   if( _theSize + 1 == array.size( ) )
       array.resize( array.size() * 2 + 1 );
 
-  if (_theSize++ == 0)
+  if (_theSize++ == 0){
     array[0] = x;
+    // vector<int>::iterator it; it = array.begin();
+    // array.erase(++it);
+    // array.resize(0);
+  }
   else{
     // Percolate up
     int hole = _theSize;
-    for(; x < array[hole / 4]; hole /= 4 ){
+    array[hole] = input;
+    for(; array[hole] < array[hole / 4]; hole /= 4 ){
       array[ hole ] = array[ hole / 4 ];
-      array[hole / 4] = in;
+      array[hole / 4] = input;
     }
   }
 }
