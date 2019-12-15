@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <math.h>
+#include <fstream>
 using namespace std;
 
 template <class Comparable>
@@ -14,6 +16,7 @@ class MinMaxHeap{
     void deleteTop(Comparable &topItem);
     void makeEmpty( );
     void printHeap();
+    void printHeapTree();
     int getSize();
     bool compareHeaps(MinMaxHeap<Comparable> heapLbl);
   private:
@@ -22,6 +25,8 @@ class MinMaxHeap{
     vector<Comparable> array;   // The heap array
     void percolateDown( int hole );
     void buildHeap( );
+    void insertSpace(int n);
+    bool isFirstNode(int index);
 };
 
 template <class Comparable>
@@ -123,14 +128,6 @@ void MinMaxHeap<Comparable>::buildHeap( ){
 }
 
 template <class Comparable>
-void MinMaxHeap<Comparable>::printHeap(){
-  cout << "[ ";
-  for (int i = 1; i <= _theSize; i++)
-    cout << array[i] << " " ;
-  cout << "]\n";
-}
-
-template <class Comparable>
 bool MinMaxHeap<Comparable>::isEmpty( ){
   if (_theSize <= 0)
     return true;
@@ -154,4 +151,62 @@ bool MinMaxHeap<Comparable>::compareHeaps(MinMaxHeap<Comparable> heapLbl){
   }
 
   return true;
+}
+
+template <class Comparable>
+void MinMaxHeap<Comparable>::insertSpace(int n){
+  for (int i = 0; i < n; i++)
+    cout << " ";
+}
+
+template <class Comparable>
+bool MinMaxHeap<Comparable>::isFirstNode(int index){
+  int nodeDepth = floor(log2(index));
+  if ( (log2(index) - nodeDepth) == 0)
+    return true;
+  return false;
+}
+
+
+
+template <class Comparable>
+void MinMaxHeap<Comparable>::printHeap(){
+  cout << "[ ";
+  for (int i = 1; i <= _theSize; i++)
+    cout << array[i] << " " ;
+  cout << "]\n";
+}
+
+template <class Comparable>
+void MinMaxHeap<Comparable>::printHeapTree(){
+  int depth = floor(log2(_theSize));  // depth of the tree
+  int nodeDepth = 0;    // depth of the node
+  int tabCount = 0;
+  cout << "The size is " << _theSize << endl;
+  cout << "The depth is " << depth << endl;
+
+  ofstream myfile;
+  myfile.open ("printTree.txt");
+
+  for (int index = 1; index <= _theSize; index++){
+    nodeDepth = floor(log2(index));
+    // cout << "index: " << index << "; nodeDepth: " << nodeDepth << " is first node: " << isFirstNode(index) <<  endl;
+    if (isFirstNode(index)){
+      myfile << endl;
+      // insertSpace(2^(depth - nodeDepth) - 1);
+      tabCount = pow(2, (depth - nodeDepth)) - 1;
+      // cout << "tabCount for index " << index << " is " <<  tabCount << endl;
+      for (int i = 0; i < tabCount; i++)
+        myfile << "\t";
+    }
+    else{
+      // insertSpace(2^(depth - nodeDepth + 1) - 1);
+      tabCount = pow(2, (depth - nodeDepth) + 1) - 1;
+      // cout << "tabCount for index " << index << " is " <<  tabCount << endl;
+      for (int i = 0; i < tabCount; i++)
+        myfile << "\t";
+    }
+    myfile << array[index];
+  }
+  myfile.close();
 }
