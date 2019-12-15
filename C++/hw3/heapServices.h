@@ -1,30 +1,27 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-enum heapType {MIN_HEAP, MAX_HEAP};
 
 template <class Comparable>
 class MinMaxHeap{
   public:
     MinMaxHeap( int capacity = 100, bool isMin = true );
-    MinMaxHeap( int capacity = 100, heapType = MIN_HEAP);
     bool isEmpty( );
     const Comparable & findMin( ) const;
-    void insert( const Comparable & x );
-    void insertStraight(const Comparable & x);
+    void insert(const Comparable & x);
+    void newInsert(const Comparable & x);
     void deleteTop( );
+    void deleteTop(Comparable &topItem);
     void makeEmpty( );
     void printHeap();
     int getSize();
-    bool compareHeaps(Comparable heapLbl);
-
+    bool compareHeaps(MinMaxHeap<Comparable> heapLbl);
   private:
     int _theSize;  // Number of elements in heap
     bool _isMin;
-    heapType _heapType;
     vector<Comparable> array;   // The heap array
-    void buildHeap( );
     void percolateDown( int hole );
+    void buildHeap( );
 };
 
 template <class Comparable>
@@ -35,11 +32,12 @@ MinMaxHeap<Comparable>::MinMaxHeap(int capacity, bool isMin){
 }
 
 template <class Comparable>
-void MinMaxHeap<Comparable>::insertStraight(const Comparable & x){
+void MinMaxHeap<Comparable>::newInsert(const Comparable & x){
+  array[ 0 ] = x;   // initialize sentinel
   if( _theSize + 1 == array.size( ) )
       array.resize( array.size() * 2 + 1 );
 
-  array[_theSize++] = x;
+  array[++_theSize] = x;
   buildHeap();
 }
 
@@ -71,6 +69,16 @@ void MinMaxHeap<Comparable>::deleteTop( ){
 
     array[ 1 ] = array[ _theSize-- ];
     percolateDown(1);
+}
+
+template <class Comparable>
+void MinMaxHeap<Comparable>::deleteTop(Comparable &topItem){
+  if( isEmpty( ) )
+      exit(1);
+
+  topItem = array[1];
+  array[1] = array[_theSize--];
+  percolateDown(1);
 }
 
 // Internal method to percolate down in the heap.
@@ -111,7 +119,7 @@ void MinMaxHeap<Comparable>::percolateDown( int hole ){
 template <class Comparable>
 void MinMaxHeap<Comparable>::buildHeap( ){
     for( int i = _theSize / 2; i > 0; i-- )
-        percolateDown( i );
+        percolateDown(i);
 }
 
 template <class Comparable>
@@ -135,7 +143,15 @@ int MinMaxHeap<Comparable>::getSize(){
 }
 
 template <class Comparable>
-bool MinMaxHeap<Comparable>::compareHeaps(Comparable heapLbl){
+bool MinMaxHeap<Comparable>::compareHeaps(MinMaxHeap<Comparable> heapLbl){
+  for (int i = 1; i <= _theSize; ){
+    Comparable item1; deleteTop(item1);
+    Comparable item2; heapLbl.deleteTop(item2);
+    cout << "item1 = " << item1 << " and ";
+    cout << "item2 = " << item2 << endl;
+  if (item1 != item2)
+    return false;
+  }
 
-  return false;
+  return true;
 }
