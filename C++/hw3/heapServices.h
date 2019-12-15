@@ -1,23 +1,27 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+enum heapType {MIN_HEAP, MAX_HEAP};
 
 template <class Comparable>
 class MinMaxHeap{
   public:
     MinMaxHeap( int capacity = 100, bool isMin = true );
+    MinMaxHeap( int capacity = 100, heapType = MIN_HEAP);
     bool isEmpty( );
     const Comparable & findMin( ) const;
-
     void insert( const Comparable & x );
+    void insertStraight(const Comparable & x);
     void deleteTop( );
     void makeEmpty( );
     void printHeap();
     int getSize();
+    bool compareHeaps(Comparable heapLbl);
 
   private:
     int _theSize;  // Number of elements in heap
     bool _isMin;
+    heapType _heapType;
     vector<Comparable> array;   // The heap array
     void buildHeap( );
     void percolateDown( int hole );
@@ -26,8 +30,17 @@ class MinMaxHeap{
 template <class Comparable>
 MinMaxHeap<Comparable>::MinMaxHeap(int capacity, bool isMin){
   _theSize = 0;   // initial size of the heap
-  // _isMin = isMin; // If the heap is min or max
+  _isMin = isMin; // If the heap is min or max
   array.push_back(0);
+}
+
+template <class Comparable>
+void MinMaxHeap<Comparable>::insertStraight(const Comparable & x){
+  if( _theSize + 1 == array.size( ) )
+      array.resize( array.size() * 2 + 1 );
+
+  array[_theSize++] = x;
+  buildHeap();
 }
 
 template <class Comparable>
@@ -119,4 +132,10 @@ bool MinMaxHeap<Comparable>::isEmpty( ){
 template <class Comparable>
 int MinMaxHeap<Comparable>::getSize(){
   return _theSize;
+}
+
+template <class Comparable>
+bool MinMaxHeap<Comparable>::compareHeaps(Comparable heapLbl){
+
+  return false;
 }
