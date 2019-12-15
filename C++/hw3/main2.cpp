@@ -8,7 +8,6 @@ int main(int argc, char const *argv[]) {
 
   cout << "Enter Array Size: "; cin >> arraySize;
 
-  int tempArray[arraySize];
   // Use insert function to fill heap1
   for (int i = 0; i < arraySize; i++ ){
       int element = rand() % 42;
@@ -24,5 +23,6 @@ int main(int argc, char const *argv[]) {
   else
     cout << "Heaps are different!" << endl;
 
+
   return 0;
-} 
+}
