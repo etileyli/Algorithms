@@ -17,7 +17,7 @@ class MinMaxHeap{
     void deleteTop(Comparable &topItem);
     void makeEmpty( );
     void printHeap();
-    void printHeapTree();
+    void indentedPrint();
     int getSize();
     bool compareHeaps(MinMaxHeap<Comparable> heapLbl);
   private:
@@ -177,7 +177,7 @@ void MinMaxHeap<Comparable>::printHeap(){
 }
 
 template <class Comparable>
-void MinMaxHeap<Comparable>::printHeapTree(){
+void MinMaxHeap<Comparable>::indentedPrint(){
   int depth = floor(log2(_theSize));  // depth of the tree
   int nodeDepth = 0;    // depth of the node
   int tabCount = 0;     // tab count to insert
