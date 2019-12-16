@@ -208,7 +208,7 @@ void MinMaxHeap<Comparable>::indentedPrint(){
 template <class Comparable>
 class FourMinHeap{
 public:
-  FourMinHeap(){array.push_back(0); _theSize = 0;};
+  FourMinHeap(){ array.push_back(2); _theSize = 0;};
   void insert(const Comparable & x);
   void deleteTop( );
   void deleteTop(Comparable &topItem);
@@ -216,7 +216,6 @@ public:
   void printHeap();
 private:
   int _theSize;  // Number of elements in heap
-  bool _isMin;
   vector<Comparable> array;   // The heap array
   void percolateDown( int hole );
   void buildHeap( );
@@ -227,30 +226,35 @@ void FourMinHeap<Comparable>::insert(const Comparable & x){
   Comparable input = x, temp;
   cout << "x: " << x << endl;
 
-  if( _theSize + 1 == array.size( ) )
-      array.resize( array.size() * 2 + 1 );
-
-  if (_theSize++ == 0){
+  if (_theSize == 0){
     array[0] = x;
-    // vector<int>::iterator it; it = array.begin();
-    // array.erase(++it);
-    // array.resize(0);
   }
   else{
+    if( _theSize + 1 == array.size( ) )
+        array.resize( array.size() * 4 + 1 );
+
     // Percolate up
+    cout << "the size = " << _theSize <<endl;
     int hole = _theSize;
     array[hole] = input;
-    for(; array[hole] < array[hole / 4]; hole /= 4 ){
-      array[ hole ] = array[ hole / 4 ];
-      array[hole / 4] = input;
+    cout << "up: "; printHeap();
+    for(int i = 1; array[hole] < array[(hole - 1) / 4]; hole /= 4){
+      cout << "array[hole] = " << array[hole] << endl;
+      cout << "array[(hole - 1) / 4] = "<< array[(hole - 1) / 4] << endl;
+      cout << "array[hole] < array[hole / 4] = " << (array[hole] < array[hole / 4])  << endl;
+      cout << "i : " << i++ << endl;
+      array[hole] = array[ (hole - 1) / 4 ];
+      array[(hole - 1) / 4] = input;
+      printHeap();
     }
   }
+  _theSize++;
 }
 
 template <class Comparable>
 void FourMinHeap<Comparable>::printHeap(){
   cout << "[ ";
-  for (int i = 0; i <= _theSize; i++)
+  for (int i = 0; i < _theSize; i++)
     cout << array[i] << " " ;
   cout << "]\n";
 }
