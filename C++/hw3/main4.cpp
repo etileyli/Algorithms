@@ -25,6 +25,7 @@ int main(int argc, char const *argv[]) {
   heap.deleteTop();
   heap.printHeap();
   heap.deleteTop();
+  heap.printHeap();
 
   return 0;
 }
