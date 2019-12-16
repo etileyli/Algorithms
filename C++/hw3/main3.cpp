@@ -1,3 +1,9 @@
+/*
+  Solution for 1-e
+  The output is printTree.txt
+  Deletion is on the same file (printTree.txt)
+*/
+
 #include <iostream>
 #include "heapServices.h"
 using namespace std;

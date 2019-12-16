@@ -1,3 +1,7 @@
+/*
+  Solution for 2-a insert() and deleteTop() functions.
+*/
+
 #include <iostream>
 #include "heapServices.h"
 using namespace std;
@@ -18,12 +22,16 @@ int main(int argc, char const *argv[]) {
     heap.printHeap();
   }
 
+  cout << "Deleting minimum item: " << endl;
   heap.deleteTop();
   heap.printHeap();
+  cout << "Deleting minimum item: " << endl;
   heap.deleteTop();
   heap.printHeap();
+  cout << "Deleting minimum item: " << endl;
   heap.deleteTop();
   heap.printHeap();
+  cout << "Deleting minimum item: " << endl;
   heap.deleteTop();
   heap.printHeap();
 

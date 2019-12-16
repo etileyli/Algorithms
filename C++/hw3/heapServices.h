@@ -1,3 +1,7 @@
+/*
+  Solutions for 1-a & 2-a
+*/
+
 #include <iostream>
 #include <vector>
 #include <math.h>
@@ -210,11 +214,14 @@ class FourMinHeap{
 public:
   FourMinHeap(){ array.push_back(2); _theSize = 0;};
   void insert(const Comparable & x);
+  void newInsert(const Comparable & x);
   void deleteTop( );
   void deleteTop(Comparable &topItem);
   void indentedPrint();
   void printHeap();
   bool isEmpty();
+  int getSize();
+
 private:
   int _theSize;  // Number of elements in heap
   vector<Comparable> array;   // The heap array
@@ -280,15 +287,15 @@ void FourMinHeap<Comparable>::percolateDown( int hole ){
 
   for( ; hole * 4 + 1 <= _theSize; hole = smallestChildIndex )
   {
-    cout << "_theSize = " << _theSize << endl;
-    cout << "array[hole] = " << array[hole] << endl;
+    // cout << "_theSize = " << _theSize << endl;
+    // cout << "array[hole] = " << array[hole] << endl;
     child = hole * 4 + 1;
     // find min child
     Comparable smallestChild = array[child];
     smallestChildIndex = child;
     for (int i = 0; i < 4; i++){
       if (child + i < _theSize){
-        cout << "child " << i <<  " index " << child + i  << " child val = " << array[child + i] << endl;
+        // cout << "child " << i <<  " index " << child + i  << " child val = " << array[child + i] << endl;
         if (array[child + i] < smallestChild){
           smallestChild = array[child + i];
           smallestChildIndex = child + i;
@@ -296,20 +303,20 @@ void FourMinHeap<Comparable>::percolateDown( int hole ){
       }
     }
 
-    cout << "smallestChild = " << smallestChild << endl;
-    cout << "smallestChildIndex = " << smallestChildIndex << endl;
-    cout << "array[hole] = " << array[hole] << endl;
+    // cout << "smallestChild = " << smallestChild << endl;
+    // cout << "smallestChildIndex = " << smallestChildIndex << endl;
+    // cout << "array[hole] = " << array[hole] << endl;
 
     // check if the smallest child is less then parent
     if (smallestChild < array[hole]){
       // swap child and the parent
       array[hole] = smallestChild;
       array[smallestChildIndex] = tmp;
-      cout << "swapping " << array[hole] << " with " << array[smallestChildIndex] << endl;
+      // cout << "swapping " << array[hole] << " with " << array[smallestChildIndex] << endl;
       // printHeap();
     }
     else{
-      cout << "not swapping anything!" << endl;
+      // cout << "not swapping anything!" << endl;
       break;
     }
     // cout << "smallestChildIndex = " << smallestChildIndex << endl;
@@ -320,8 +327,34 @@ void FourMinHeap<Comparable>::percolateDown( int hole ){
 }
 
 template <class Comparable>
+int FourMinHeap<Comparable>::getSize(){
+  return _theSize;
+}
+
+template <class Comparable>
 bool FourMinHeap<Comparable>::isEmpty( ){
   if (_theSize <= 0)
     return true;
   return false;
+}
+
+template <class Comparable>
+void FourMinHeap<Comparable>::newInsert(const Comparable & x){
+  if( _theSize + 1 == array.size( ) )
+      array.resize( array.size() * 2 + 1 );
+
+  // cout << "x = " << x << endl;
+  array[_theSize++] = x;
+  buildHeap();
+}
+
+template <class Comparable>
+void FourMinHeap<Comparable>::buildHeap( ){
+    // cout << "_theSize = " << _theSize << endl;
+    // cout << "x = " << array[_theSize - 1] << endl;
+    // Comparable temp = array[_theSize - 1];
+
+    for( int i = _theSize / 4; i > 0; i-- ){
+      percolateDown(i);
+    }
 }
