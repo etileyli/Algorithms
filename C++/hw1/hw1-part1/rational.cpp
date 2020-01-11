@@ -85,7 +85,7 @@ void Rational::simplify()
       denom /= gcdVal;
     }
     else
-      std::cout << "no common divider!\n";
+      std::cout << "no common divider! => ";
 
 }
 
