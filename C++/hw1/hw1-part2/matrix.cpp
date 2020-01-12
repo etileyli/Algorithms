@@ -90,6 +90,10 @@ current one. The function return a reference to Matrix Class Object. */
 Matrix& Matrix::operator=(const Matrix& rhs)
 {
     /* TO-DO */
+    for  (int i = 0; i < n; i++)
+      for  (int j = 0; j < n; j++){
+        set_number(i, j, rhs.get_number(i, j));
+      }
     return *this;
 }
 
@@ -157,6 +161,16 @@ void Matrix::substract(const Matrix& rhs)
 void Matrix::transpose()
 {
     /* TO-DO */
+    Matrix temp(n);
+    for  (int i = 0; i < n; i++)
+      for  (int j = 0; j < n; j++){
+        temp.set_number(i, j, matrix[j][i]);
+      }
+
+    for  (int i = 0; i < n; i++)
+      for  (int j = 0; j < n; j++){
+        set_number(i, j, temp.get_number(i, j));
+      }
 }
 
 /*              << Operator Overloading

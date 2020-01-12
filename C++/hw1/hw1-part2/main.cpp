@@ -40,5 +40,13 @@ int main()
     std::cout << "matrix SUBSTRACT: " << std::endl;
     std::cout << m2;
 
+    m2 = m3;
+    std::cout << "matrix 2: " << std::endl;
+    std::cout << m2;
+
+    m2.transpose();
+    std::cout << "matrix 2: " << std::endl;
+    std::cout << m2;
+
     return 0;
 }
