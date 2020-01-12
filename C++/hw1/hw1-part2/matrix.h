@@ -34,7 +34,7 @@ class Matrix
         // Substraction operation. Substracts rhs matrix from the current one.
         // Result is stored in the current one.
         void substract(const Matrix& rhs);
-        // Takes transpose of the current matrix. Result is stored in 
+        // Takes transpose of the current matrix. Result is stored in
         // the current one
         void transpose();
 

@@ -1,4 +1,5 @@
-#include "matrix.hpp"
+#include <iostream>
+#include "matrix.h"
 
 /*              Default Constructor for Matrix Class
 
@@ -9,6 +10,16 @@ initialized with full of zeros in nxn dimension.                           */
 Matrix::Matrix(int dimension)
 {
     /* TO-DO */
+    n = dimension;
+    matrix = new int*[dimension];
+
+    // Each pointer i points to an array of size n
+    for (int i = 0; i < dimension; i++)
+      matrix[i] = new int[dimension];
+
+    for (int i = 0; i < dimension; i++)
+      for (int j = 0; j < dimension; j++)
+        matrix[i][j] = 0;
 }
 
 /*                    Destructor for Matrix Class
@@ -17,6 +28,12 @@ matrix.                                                                   */
 Matrix::~Matrix()
 {
     /* TO-DO */
+    // Delete each sub-array
+    for (int i = 0; i < n; i++)
+      delete[] matrix[i];
+
+    // delete main array
+    delete[] matrix;
 }
 
 /*                Get Dimension Function
@@ -24,7 +41,7 @@ This function should return the dimension of the matrix.   */
 int Matrix::get_dimension() const
 {
     /* TO-DO */
-    return 0;
+    return n;
 }
 
 /*                  Get Number Function
@@ -43,7 +60,7 @@ A.get_number(0,1) should return 3.                         */
 int Matrix::get_number(int i, int j) const
 {
     /* TO-DO */
-    return 0;
+    return matrix[i][j];
 }
 
 
@@ -62,6 +79,7 @@ A = 1 0 9
 void Matrix::set_number(int i, int j, int value)
 {
     /* TO-DO */
+    matrix[i][j] = value;
 }
 
 /*               Assignment Operator Overloading
@@ -99,6 +117,10 @@ B = 3 8 0
 void Matrix::sum_with(const Matrix& rhs)
 {
     /* TO-DO */
+    for  (int i = 0; i < n; i++)
+      for  (int j = 0; j < n; j++){
+        set_number(i, j, matrix[i][j] + rhs.get_number(i, j));
+      }
 }
 
 
@@ -126,6 +148,10 @@ B = 3 8 0
 void Matrix::substract(const Matrix& rhs)
 {
     /* TO-DO */
+    for  (int i = 0; i < n; i++)
+      for  (int j = 0; j < n; j++){
+        set_number(i, j, matrix[i][j] - rhs.get_number(i, j));
+      }
 }
 
 void Matrix::transpose()
